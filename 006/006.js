@@ -15,7 +15,7 @@
  */
 
 // Utility
-//
+
 // Since our method is exclusive of the higher number we add 1 to it.
 // I think this is better for the user as they don't have to remember
 // that lower is inclusive but upper is exclusive.  For our purposes

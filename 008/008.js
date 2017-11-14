@@ -1,3 +1,5 @@
+'use strict'
+
 /**
  * The four adjacent digits in the 1000-digit number that have the greatest
  * product are 9 × 9 × 8 × 9 = 5832.
@@ -30,27 +32,28 @@
 // Utilities
 const productOfArray = arr => arr.reduce((p, n) => p * n)
 const maxNumberInArray = arr => arr.reduce((a, b) => Math.max(a, b))
+const isLength = n => arr => n === arr.length
 
 // Problem-specific function(s)
 const getGreatestAdjacentNProduct = range => n => {
-  let first = 0
-  let last = range
-
+  const first = 0
+  const last = range
   const digits = `${n}`.split('')
   const getAdjacent = (_, i, arr) => arr.slice(first + i, last + i)
   // We could avoid this extra filter loop that drops arrays from the end that
-  // are too short if I used a `while` or `for` loop, but ¯\_(ツ)_/¯ I don't
-  // like `for` or `while` loops and avoid them
-  const arrayOfAdjacents1 = digits.map(getAdjacent).filter(arr => arr.length === range)
-  const arrayOfAdjacents = arrayOfAdjacents1.filter(arr => arr.length === range)
-  const productsOfAdjacents = arrayOfAdjacents.map(productOfArray)
+  // are too short if I used a `while` or `for` loop, but ¯\_(ツ)_/¯.
+  // I want to use FP style.
+  const productsOfAdjacents = digits
+    .map(getAdjacent)
+    .filter(isLength(range))
+    .map(productOfArray)
 
   return maxNumberInArray(productsOfAdjacents)
 }
 
 const getGreatestAdjacent13Product = n => getGreatestAdjacentNProduct(13)(n)
 
-// Gotta use a string 'cause javascript.
+// Gotta use a string 'cause javascript doesn't support numbers this large.
 // (To be fair most language vomit on numbers this big)
 const thousandDigitNumber =
   '73167176531330624919225119674426574742355349194934' +
