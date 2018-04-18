@@ -24,7 +24,6 @@ fn sum_tail(v: &Vec<u32>) -> u32 {
 }
 
 // Problem-specific
-// TODO: Write this to be recursively.
 fn get_fibonacci_below(limit: u32) -> Vec<u32> {
     let mut fibonacci = vec![1, 2];
     let mut done = fibonacci[fibonacci.len() - 1] >= limit;
